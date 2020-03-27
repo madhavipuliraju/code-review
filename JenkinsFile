@@ -1,0 +1,15 @@
+pipeline {
+agent any 
+stages{
+    stage('Build') {
+     sh 'pip install  --testHPHello/.python_packages/lib/site-packages  -r requirements.txt'
+     }
+     
+     stage('Publish') {
+   
+     azureFunctionAppPublish azureCredentialsId: '',
+                        resourceGroup: 'testhpdeployment2', appName: 'testHpDeployment',
+                        filePath: '**/*.py,**/*.json,**/*.txt'
+     }
+}
+}
